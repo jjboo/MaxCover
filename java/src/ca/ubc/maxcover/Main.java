@@ -1,5 +1,8 @@
 package ca.ubc.maxcover;
 
+/**
+ * Main class for executing jobs
+ */
 public class Main {
 
   public static void main(String[] args) {
