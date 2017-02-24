@@ -2,9 +2,6 @@ package ca.ubc.maxcover.node;
 
 import java.util.Comparator;
 
-/**
- * Created by weilu on 2/23/17.
- */
 public class CelfNode extends AbstractNode {
 
     public static class NodeComparator implements Comparator<CelfNode> {
