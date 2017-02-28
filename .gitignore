@@ -4,3 +4,4 @@
 *.ipr
 out/
 .DS_Store
+MANIFEST.MF
