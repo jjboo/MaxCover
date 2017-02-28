@@ -74,9 +74,9 @@ public class Celf {
                     covered.add(element);
                 }
                 _covQueue.poll();
-                double timeInSec = (double) (System.currentTimeMillis() - startTime) / 1000.0;
-                Main.LOGGER.info(Utility.seedToStr(_seedSet.size(), bestNode.id, bestNode.mg, coverage,
-                    lookUps, 0, timeInSec));
+                double timeInSec = (double) (System.currentTimeMillis() - startTime);
+                Utility.logSeed(_seedSet.size(), bestNode.id, bestNode.mg, coverage, lookUps, 0,
+                    timeInSec, _config, _bufferedWriter);
                 lookUps = 0; // reset
             } else {
                 // re-compute MG

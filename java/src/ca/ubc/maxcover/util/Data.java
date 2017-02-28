@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,9 @@ public class Data {
     }
 
     public Set<Integer> getById(int id) {
+        if (id < 0 || id >= this.transactions.size()) {
+            return Collections.emptySet();
+        }
         return this.transactions.get(id);
     }
 

@@ -80,8 +80,8 @@ public class CelfPlus {
         coverage += bestNode.mg;
 
         double timeInSec = (double) (System.currentTimeMillis() - startTime);
-        Main.LOGGER.info(Utility.seedToStr(_seedSet.size(), bestNode.id, bestNode.mg, coverage,
-            lookUps, savings, timeInSec));
+        Utility.logSeed(_seedSet.size(), bestNode.id, bestNode.mg, coverage, lookUps, 0,
+            timeInSec, _config, _bufferedWriter);
 
         _covQueue.poll();
         lookUps = 0;
@@ -96,12 +96,12 @@ public class CelfPlus {
           // u.mg2 = u.mg1; skip MG re-computation
           savings++;
           newNode = new CelfPlusNode(bestNode.id, bestNode.mg2, 0, _seedSet.size(), NULL_ID);
-
-        } else if (_seedSet.contains(bestNode.prevBest) && bestNode.flag <= _seedSet.size() - 1)  {
-          savings++;
-          newNode = new CelfPlusNode(bestNode.id, bestNode.mg2, 0, _seedSet.size() - 1, NULL_ID);
-
-        } else {
+        }
+        else if (_seedSet.contains(bestNode.prevBest) && bestNode.flag <= _seedSet.size() - 1)  {
+            savings++;
+            newNode = new CelfPlusNode(bestNode.id, bestNode.mg2, 0, _seedSet.size() - 1, NULL_ID);
+        }
+        else {
           // need to do MG recomputation
           lookUps++;
           int[] gains = SetCover.computeMG2(_data.getById(bestNode.id), covered,
