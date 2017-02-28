@@ -79,7 +79,9 @@ public class Config {
     private void setAlgorithm(String algo) {
         if (algo.toLowerCase().equals("celf")) {
             algorithm = Algorithm.CELF;
-        } else if (algo.toLowerCase().equals("celfpp")) {
+        } else if (algo.toLowerCase().equals("celfpp") ||
+            algo.toLowerCase().equals("celfplus") ||
+            algo.toLowerCase().equals("celf++")) {
             algorithm = Algorithm.CELFPP;
         } else {
             throw new RuntimeException("Algorithm not supported. " + algo);
@@ -95,5 +97,18 @@ public class Config {
         LOGGER.info("Algorithm choice: " + this.algorithm);
         LOGGER.info("Number of seeds: " + this.numSeeds);
         LOGGER.info("Starting iteration: " + this.startIter);
+    }
+
+    /**
+     * Return log file name for the current execution
+     */
+    public String getLogFileName() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.outputDir).append("/"); // put the log file under the output path
+        sb.append(dataFile.substring(dataFile.lastIndexOf("/") + 1, dataFile.lastIndexOf("."))).append("_");
+        sb.append(algorithm.toString()).append("_");
+        sb.append(numSeeds).append("_");
+        sb.append(System.currentTimeMillis()).append(".log");
+        return sb.toString();
     }
 }

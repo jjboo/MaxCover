@@ -60,15 +60,18 @@ public class CelfPlus {
       _covQueue.add(node);
       lookUps++;
 
-      if (id % 1000 == 0) {
-        Main.LOGGER.info(node.id + "\t" + String.format("%d", node.mg));
-      }
+      //if (id % 1000 == 0) {
+      //  Main.LOGGER.info(node.id + "\t" + String.format("%d", node.mg));
+      //}
     }
 
     /* Select k seeds */
     while (_seedSet.size() < _config.getNumSeeds()) {
-
       CelfPlusNode bestNode = _covQueue.peek();
+      if (bestNode.mg <= 0) {
+        Main.LOGGER.info("No more positive marginal coverage available, existing ...");
+        break;
+      }
 
       // flag = current seed set size: found a seed
       if (bestNode.flag == _seedSet.size()) {
@@ -76,9 +79,9 @@ public class CelfPlus {
         lastSeedId = bestNode.id;
         coverage += bestNode.mg;
 
-        double timeInSec = (double) (System.currentTimeMillis() - startTime) / 1000.0;
+        double timeInSec = (double) (System.currentTimeMillis() - startTime);
         Main.LOGGER.info(Utility.seedToStr(_seedSet.size(), bestNode.id, bestNode.mg, coverage,
-            lookUps, 0, timeInSec));
+            lookUps, savings, timeInSec));
 
         _covQueue.poll();
         lookUps = 0;
